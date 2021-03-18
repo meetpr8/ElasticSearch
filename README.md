@@ -13,9 +13,9 @@ Api: Here is where all the implementation of queries. There are 5 directories in
     Controller: It has controllers with all the REST endpoints exposed for querying.
     Model: It has classes/models which fields are mapped with the fields of corresponding 
            index in elasticsearch.
-    Service: This is the service module where we have all the logic which does not include 
-             the access of database is implemented.
+    Service: This is the service module where all the logic, which does not include 
+             the access of database, is implemented.
     Dao: This is the module where all the database related logic is implemented.
-    Repo: This module is having repositories and their implementation incase if it is custom 
+    Repo: This module is having repositories and their implementation incase of custom 
           repository
 
