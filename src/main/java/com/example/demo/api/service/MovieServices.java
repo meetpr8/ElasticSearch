@@ -53,5 +53,7 @@ public class MovieServices {
     }
 
 
-
+    public SearchHits<movies> autoSuggestInPlot(String text) {
+        return movieDao.autoSuggestInPlot(text);
+    }
 }
