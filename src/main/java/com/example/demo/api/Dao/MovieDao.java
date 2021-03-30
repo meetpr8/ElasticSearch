@@ -60,7 +60,7 @@ public class MovieDao {
         String[] include = new String[]{"title", "directors", "year"};
         String[] exclude = new String[0];
         SearchRequest searchRequest = new SearchRequest("movies");
-        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().
+        SearchSourceBuilder searchSourceBuilder = new SearchSourceBuilder().size(3).
                 query(QueryBuilders.matchQuery("directors", director)).
                 fetchSource(include, exclude);
         searchRequest.source(searchSourceBuilder);
@@ -104,7 +104,7 @@ public class MovieDao {
         }
         return null;*/
         Query query = new NativeSearchQueryBuilder().
-                withQuery(QueryBuilders.matchPhraseQuery("fullplot", text)).build();
+                withQuery(QueryBuilders.matchPhraseQuery("plot", text)).build();
         return elasticsearchOperations.search(query, movies.class);
     }
 
@@ -115,5 +115,13 @@ public class MovieDao {
     }
 
 
-
+    public SearchHits<movies> autoSuggestInPlot(String text) {
+        String[] include = new String[]{"title", "directors", "plot"};
+        String[] exclude = new String[0];
+        SourceFilter sourceFilter = new FetchSourceFilter(include, exclude);
+        Query query = new NativeSearchQueryBuilder().
+                withQuery(QueryBuilders.matchQuery("plot", text)).
+                withSourceFilter(sourceFilter).build();
+        return elasticsearchOperations.search(query, movies.class);
+    }
 }
