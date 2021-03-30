@@ -53,6 +53,12 @@ public class MovieController {
         movieServices.add(movie);
     }
 
+    //Auto-Suggest Example
+    @GetMapping(value = "/autoSuggest/{text}")
+    private SearchHits<movies> autoSuggestInPlot(@PathVariable String text)
+    {
+        return movieServices.autoSuggestInPlot(text);
+    }
 
 
 }
